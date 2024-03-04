@@ -56,7 +56,7 @@ class DynamicFormRequest {
     }
 
     requestObj["ModuleID"] = moduleItem?.moduleId;
-    requestObj["SessionID"] = "ffffffff-e46c-53ce-0000-00001d093e12";
+    requestObj["SessionID"] = Constants.getUniqueID();
 
     if (formItem != null) {
       actionControl =
