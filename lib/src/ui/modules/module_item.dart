@@ -58,71 +58,35 @@ class VerticalModule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Card(
-            margin: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+          margin: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          elevation: 0,
+          color: Colors.white,
+          shadowColor: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: MenuItemImage(
+              imageUrl: moduleItem.moduleUrl ?? "",
+              iconSize: 25,
             ),
-            elevation: 0,
-            color: Colors.white,
-            shadowColor: Colors.black,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: MenuItemImage(
-                imageUrl: moduleItem.moduleUrl ?? "",
-                iconSize: 20,
-              ),
-            )),
-        SizedBox(
-          height: double.parse("6"),
+          ),
         ),
-        Text(
-          moduleItem.moduleName,
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 11),
+        SizedBox(height: 6),
+        // Use Flexible to ensure the text doesn't overflow
+        Flexible(
+          child: Text(
+            moduleItem.moduleName,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 11),
+          ),
         )
       ],
     );
-
-    // return Card(
-    //     surfaceTintColor:
-    //         CommonUtils.parseColor(menuProperties?.backgroundColor ?? "#fffff"),
-    //     elevation: menuProperties?.elevation ?? 0,
-    //     shape: RoundedRectangleBorder(
-    //         side: BorderSide(
-    //             width: menuBorder?.width ?? 1.5,
-    //             color: CommonUtils.parseColor(menuBorder?.color ?? "#fffff")),
-    //         borderRadius: BorderRadius.all(
-    //           Radius.circular(menuBorder?.radius ?? 12),
-    //         )),
-    //     child: Padding(
-    //         padding: EdgeInsets.all(menuProperties?.padding ?? 4),
-    //         child: Center(
-    //           child: Column(
-    //             mainAxisAlignment: getAlignment(),
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               MenuItemImage(
-    //                 imageUrl: moduleItem.moduleUrl ?? "",
-    //                 iconSize: menuProperties?.iconSize ?? 44,
-    //               ),
-    //               SizedBox(
-    //                 height: double.parse(menuProperties?.spaceBetween ?? "12"),
-    //               ),
-    //               Flexible(
-    //                   child: MenuItemTitle(
-    //                 title: moduleItem.moduleName,
-    //                 textSize: menuProperties?.textSize,
-    //                 fontWeight:
-    //                     menuProperties?.fontWeight?.toLowerCase() == "bold"
-    //                         ? FontWeight.bold
-    //                         : FontWeight.normal,
-    //               ))
-    //             ],
-    //           ),
-    //         )));
   }
 
   Color? getMenuColor(context) =>
