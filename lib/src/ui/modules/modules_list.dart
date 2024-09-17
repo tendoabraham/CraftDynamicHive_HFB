@@ -119,7 +119,7 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                         topLeft: Radius.circular(30)),
                                     child: Container(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 16),
+                                            horizontal: 5, vertical: 16),
                                         color: primaryLightVariant,
                                         height: MediaQuery.of(context)
                                             .size
