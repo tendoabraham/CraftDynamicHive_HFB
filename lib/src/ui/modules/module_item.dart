@@ -87,39 +87,6 @@ class VerticalModule extends StatelessWidget {
         )
       ],
     );
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Card(
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          elevation: 0,
-          color: Colors.white,
-          shadowColor: Colors.black,
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: MenuItemImage(
-              imageUrl: moduleItem.moduleUrl ?? "",
-              iconSize: 25,
-            ),
-          ),
-        ),
-        SizedBox(height: 6),
-        // Use Flexible to ensure the text doesn't overflow
-        Flexible(
-          child: Text(
-            moduleItem.moduleName,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11),
-          ),
-        )
-      ],
-    );
   }
 
   Color? getMenuColor(context) =>
