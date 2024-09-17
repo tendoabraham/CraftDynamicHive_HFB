@@ -2,10 +2,19 @@ part of craft_dynamic;
 
 class DeviceInfo {
   static getDeviceUniqueID() async {
+    String? serial;
     if (kIsWeb) {
       return "123";
     }
-    return await UniqueIdentifier.serial;
+    try {
+      serial = Platform.isAndroid
+          ? await UniqueIdentifier.serial
+          : CryptLib.toSHA256(await UniqueIdentifier.serial ?? "", 16);
+    } catch (e) {
+      AppLogger.appLogD(tag: "device info", message: e);
+    }
+
+    return serial;
   }
 
   static performDeviceSecurityScan() async {

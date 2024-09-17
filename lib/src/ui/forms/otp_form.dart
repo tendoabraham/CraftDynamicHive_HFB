@@ -132,7 +132,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
             var obj = preCallData.requestObject;
             obj?["EncryptedFields"]
                 .addAll({"TrxOTP": CryptLib.encryptField(otpController.text)});
-            lastWebHeaderUsed.value = "account";
+            lastWebHeaderUsed.value = "purchase";
 
             await _dynamicRequest
                 .dynamicRequest(widget.moduleItem,
