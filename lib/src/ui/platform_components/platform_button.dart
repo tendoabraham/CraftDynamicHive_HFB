@@ -26,7 +26,9 @@ class IOSButton implements IElevatedButton {
     return CupertinoButton(
       onPressed: function,
       color: color,
-      child: Text(buttonTitle),
+      child: Text(buttonTitle,
+          style: TextStyle(
+              fontSize: 12, fontFamily: "DMSans", fontWeight: FontWeight.bold)),
     );
   }
 }
@@ -38,6 +40,10 @@ class AndroidButton implements IElevatedButton {
     return ElevatedButton(
         onPressed: function,
         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(color)),
-        child: Text(buttonTitle));
+        child: Text(
+          buttonTitle,
+          style: TextStyle(
+              fontSize: 12, fontFamily: "DMSans", fontWeight: FontWeight.bold),
+        ));
   }
 }

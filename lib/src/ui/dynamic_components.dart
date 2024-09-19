@@ -193,6 +193,12 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
           textInputType: inputType,
           maxLength: formItem?.maxLength,
           maxLines: formItem?.maxLines,
+          textStyle: TextStyle(
+            fontSize: 12,
+            color: Color(0xff2532A1),
+            fontWeight: FontWeight.bold,
+            fontFamily: "DMSans",
+          ),
           inputDecoration: InputDecoration(
               // border: const OutlineInputBorder(),
               labelText: formItem?.controlText,
@@ -203,7 +209,20 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
                   : null),
           isAmount: formItem?.controlFormat == ControlFormat.Amount.name);
 
-      return WidgetFactory.buildTextField(context, properties, validator);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "${formItem?.controlText}",
+            style: TextStyle(
+                fontSize: 12,
+                fontFamily: "DMSans",
+                fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          WidgetFactory.buildTextField(context, properties, validator)
+        ],
+      );
     });
   }
 
@@ -338,7 +357,7 @@ class _DynamicButtonState extends State<DynamicButton> {
     return Builder(builder: (BuildContext context) {
       return Container(
           alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.symmetric(vertical: 34),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Consumer<PluginState>(builder: (context, state, child) {
             return state.loadingNetworkData
                 ? LoadUtil()
@@ -618,15 +637,20 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
           Widget child = DropdownButtonFormField2(
             value: _currentValue,
             decoration: InputDecoration(
-                prefixIcon: ThreeLoadUtil(
-              size: 24,
-            )),
+              prefixIcon: ThreeLoadUtil(
+                size: 24,
+              ),
+            ),
             hint: Text(
               formItem?.controlText ?? "",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "DMSans"),
             ),
             isExpanded: true,
-            style: const TextStyle(fontSize: 16, color: Colors.black),
+            style: const TextStyle(
+                fontSize: 16, color: Color(0xff2532A1), fontFamily: "DMSans"),
             items: const [],
           );
           if (snapshot.hasData) {
@@ -642,7 +666,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 isExpanded: true,
-                style: const TextStyle(fontSize: 16, color: Colors.black),
+                style: const TextStyle(
+                    fontSize: 16, color: Colors.black, fontFamily: "DMSans"),
                 items: const [],
               );
             } else {
@@ -905,7 +930,20 @@ class _DropDownState extends State<DropDown> {
                   );
                 });
               }
-              return child;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${formItem?.controlText}",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: "DMSans",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  child
+                ],
+              );
             });
       }
     });
@@ -1135,7 +1173,7 @@ class DynamicTextViewWidget implements IFormWidget {
                                             value.toString(),
                                             textAlign: TextAlign.right,
                                             style: const TextStyle(
-                                                fontFamily: "Roboto"),
+                                                fontFamily: "DMSans"),
                                           ))
                                         ],
                                       ))))

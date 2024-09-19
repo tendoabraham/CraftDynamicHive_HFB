@@ -7,6 +7,11 @@ import 'package:collection/collection.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:provider/provider.dart';
 
+const primaryColor = Color(0xff2532A1);
+const secondaryAccent = Color(0xffF6B700);
+const primaryLight = Color(0xffD3EFFF);
+const primaryLightVariant = Color(0xffFFF9D9);
+
 class RegularFormWidget extends StatefulWidget {
   final ModuleItem moduleItem;
   final List<FormItem> sortedForms;
@@ -59,28 +64,7 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
           return true;
         },
         child: Scaffold(
-            appBar: AppBar(
-              elevation: 2,
-              title: Text(widget.moduleItem.moduleName),
-              actions: recentList != null
-                  ? [
-                      IconButton(
-                          onPressed: () {
-                            CommonUtils.navigateToRoute(
-                                context: context,
-                                widget: ListDataScreen(
-                                    widget: DynamicListWidget(
-                                            moduleItem: widget.moduleItem,
-                                            formItem: recentList)
-                                        .render(),
-                                    title: widget.moduleItem.moduleName));
-                          },
-                          icon: const Icon(
-                            Icons.view_list,
-                          ))
-                    ]
-                  : null,
-            ),
+            backgroundColor: primaryColor,
             body: SizedBox(
                 height: double.infinity,
                 child: Scrollbar(
@@ -90,28 +74,89 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                         child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Form(
-                            key: _formKey,
-                            child: ListView.builder(
-                                padding: const EdgeInsets.only(
-                                    left: 18, right: 18, top: 8),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: formItems.length,
-                                itemBuilder: (context, index) {
-                                  return BaseFormComponent(
-                                      formItem: formItems[index],
-                                      moduleItem: widget.moduleItem,
-                                      formItems: formItems,
-                                      formKey: _formKey,
-                                      child: IFormWidget(formItems[index],
-                                              jsonText: widget.jsonDisplay,
-                                              formFields: widget.formFields)
-                                          .render());
-                                }))
+                        Container(
+                            padding: EdgeInsets.only(
+                                left: 24, right: 24, bottom: 6, top: 30),
+                            color: primaryColor,
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                InkWell(
+                                    onTap: () {
+                                      // Scaffold.of(context).openDrawer();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Icon(
+                                      Icons.arrow_back_sharp,
+                                      size: 24,
+                                      color: Colors.white,
+                                    )),
+                                Spacer(),
+                                Text(
+                                  "${widget.moduleItem?.moduleName}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: "DMSans",
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Spacer(),
+                                Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          CommonUtils.navigateToRoute(
+                                              context: context,
+                                              widget: ListDataScreen(
+                                                  widget: DynamicListWidget(
+                                                          moduleItem:
+                                                              widget.moduleItem,
+                                                          formItem: recentList)
+                                                      .render(),
+                                                  title: widget
+                                                      .moduleItem.moduleName));
+                                        },
+                                        icon: const Icon(
+                                          Icons.view_list,
+                                          color: Colors.white,
+                                        ))),
+                                // )
+                              ],
+                            )),
+                        ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30)),
+                            child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 16),
+                                color: primaryLightVariant,
+                                height: MediaQuery.of(context).size.height,
+                                width: MediaQuery.of(context).size.width,
+                                child: Form(
+                                    key: _formKey,
+                                    child: ListView.builder(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 20, top: 8),
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: formItems.length,
+                                        itemBuilder: (context, index) {
+                                          return BaseFormComponent(
+                                              formItem: formItems[index],
+                                              moduleItem: widget.moduleItem,
+                                              formItems: formItems,
+                                              formKey: _formKey,
+                                              child: IFormWidget(
+                                                      formItems[index],
+                                                      jsonText:
+                                                          widget.jsonDisplay,
+                                                      formFields:
+                                                          widget.formFields)
+                                                  .render());
+                                        }))))
                       ],
                     ))))));
   }
