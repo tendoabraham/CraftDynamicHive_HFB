@@ -69,7 +69,7 @@ class _RadioWidgetState extends State<RadioWidget> {
                   children: [
                     Container(
                         padding: EdgeInsets.only(
-                            left: 24, right: 24, bottom: 6, top: 30),
+                            left: 20, right: 20, bottom: 6, top: 30),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
