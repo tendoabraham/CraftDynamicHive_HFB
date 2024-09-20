@@ -76,7 +76,7 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                       children: [
                         Container(
                             padding: EdgeInsets.only(
-                                left: 20, right: 20, bottom: 6, top: 30),
+                                left: 18, right: 10, bottom: 6, top: 30),
                             color: primaryColor,
                             width: MediaQuery.of(context).size.width,
                             child: Row(
@@ -138,7 +138,7 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                     key: _formKey,
                                     child: ListView.builder(
                                         padding: const EdgeInsets.only(
-                                            left: 20, right: 20, top: 8),
+                                            left: 16, right: 16, top: 8),
                                         shrinkWrap: true,
                                         physics:
                                             const NeverScrollableScrollPhysics(),

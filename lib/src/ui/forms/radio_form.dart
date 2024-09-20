@@ -69,7 +69,7 @@ class _RadioWidgetState extends State<RadioWidget> {
                   children: [
                     Container(
                         padding: EdgeInsets.only(
-                            left: 20, right: 20, bottom: 6, top: 30),
+                            left: 18, right: 10, bottom: 6, top: 30),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -77,7 +77,6 @@ class _RadioWidgetState extends State<RadioWidget> {
                           children: <Widget>[
                             InkWell(
                                 onTap: () {
-                                  // Scaffold.of(context).openDrawer();
                                   Navigator.of(context).pop();
                                 },
                                 child: Icon(
@@ -98,6 +97,7 @@ class _RadioWidgetState extends State<RadioWidget> {
                             Padding(
                                 padding: const EdgeInsets.all(0),
                                 child: IconButton(
+                                    padding: EdgeInsets.zero,
                                     onPressed: () {
                                       CommonUtils.navigateToRoute(
                                           context: context,
@@ -177,7 +177,7 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
       chips.add(Expanded(
           flex: 1,
           child: Container(
-              margin: const EdgeInsets.only(right: 2),
+              margin: const EdgeInsets.symmetric(horizontal: 2),
               child: ChoiceChip(
                 side: _value == index
                     ? null
@@ -187,11 +187,22 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
                   overflow: TextOverflow.ellipsis,
                   color: _value == index
                       ? Colors.white
-                      : APIService.appSecondaryColor,
+                      : APIService.appPrimaryColor,
+                  fontSize: 13,
+                  fontFamily: "DMSans",
+                  fontWeight: FontWeight.bold,
                 ),
                 label: SizedBox(
                   width: double.infinity,
-                  child: Text(formItem.controlText ?? ""),
+                  child: Text(
+                    formItem.controlText ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: "DMSans",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 selected: _value == index,
                 onSelected: (bool selected) {
@@ -234,37 +245,56 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
         child: SizedBox(
             height: double.infinity,
             child: SingleChildScrollView(
-                child: Column(mainAxisSize: MainAxisSize.max, children: [
-              const SizedBox(
-                height: 12,
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(left: 18, right: 18, top: 8),
-                  child: Align(
-                      child: Row(
-                    children: chips,
-                  ))),
-              const SizedBox(
-                height: 18,
-              ),
-              Form(
-                  key: _formKey,
-                  child: ListView.builder(
-                      shrinkWrap: true,
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
+                    child: const Text(
+                      "Choose receipient",
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: "Manrope",
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
                       padding:
                           const EdgeInsets.only(left: 14, right: 14, top: 8),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: sortedForms.length,
-                      itemBuilder: (context, index) {
-                        return BaseFormComponent(
-                            formItem: sortedForms[index],
-                            moduleItem: widget.moduleItem,
-                            formKey: _formKey,
-                            formItems: sortedForms,
-                            child: IFormWidget(
-                              sortedForms[index],
-                            ).render());
-                      }))
-            ]))));
+                      child: Align(
+                          child: Row(
+                        children: chips,
+                      ))),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16),
+                    color: APIService.appSecondaryColor,
+                    width: MediaQuery.of(context).size.width,
+                    height: 1,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Form(
+                      key: _formKey,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: sortedForms.length,
+                          itemBuilder: (context, index) {
+                            return BaseFormComponent(
+                                formItem: sortedForms[index],
+                                moduleItem: widget.moduleItem,
+                                formKey: _formKey,
+                                formItems: sortedForms,
+                                child: IFormWidget(
+                                  sortedForms[index],
+                                ).render());
+                          }))
+                ]))));
   }
 }

@@ -196,7 +196,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
           textStyle: TextStyle(
             fontSize: 12,
             color: Color(0xff2532A1),
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             fontFamily: "DMSans",
           ),
           inputDecoration: InputDecoration(
@@ -216,7 +216,7 @@ class _DynamicTextFormFieldState extends State<DynamicTextFormField> {
             "${formItem?.controlText}",
             style: TextStyle(
                 fontSize: 12,
-                fontFamily: "DMSans",
+                fontFamily: "Manrope",
                 fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -357,10 +357,14 @@ class _DynamicButtonState extends State<DynamicButton> {
     return Builder(builder: (BuildContext context) {
       return Container(
           alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Consumer<PluginState>(builder: (context, state, child) {
             return state.loadingNetworkData
-                ? LoadUtil()
+                ? const SpinKitSpinningLines(
+                    color: primaryColor,
+                    duration: Duration(milliseconds: 2000),
+                    size: 40,
+                  )
                 : WidgetFactory.buildButton(context, onClick,
                     formItem?.controlText?.capitalizeFirstLetter() ?? "Submit");
           }));
@@ -937,7 +941,7 @@ class _DropDownState extends State<DropDown> {
                     "${formItem?.controlText}",
                     style: TextStyle(
                         fontSize: 12,
-                        fontFamily: "DMSans",
+                        fontFamily: "Manrope",
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -1136,6 +1140,7 @@ class DynamicTextViewWidget implements IFormWidget {
         ? Builder(builder: (BuildContext context) {
             return Column(children: [
               ListView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: mapItems.length,
@@ -1149,31 +1154,32 @@ class DynamicTextViewWidget implements IFormWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0)),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 8.0),
+                        padding: const EdgeInsets.only(
+                            right: 16.0, bottom: 16.0, left: 16, top: 4),
                         child: Column(
                           children: mapItem
                               .map((key, value) => MapEntry(
                                   key,
                                   Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8),
+                                      padding: const EdgeInsets.only(top: 12),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             "$key:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                                fontFamily: "Manrope"),
                                           ),
                                           Flexible(
                                               child: Text(
                                             value.toString(),
                                             textAlign: TextAlign.right,
                                             style: const TextStyle(
-                                                fontFamily: "DMSans"),
+                                                fontSize: 13,
+                                                fontFamily: "Manrope"),
                                           ))
                                         ],
                                       ))))
@@ -1182,6 +1188,15 @@ class DynamicTextViewWidget implements IFormWidget {
                         ),
                       ));
                 },
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Container(
+                margin: EdgeInsets.zero,
+                color: APIService.appSecondaryColor,
+                width: MediaQuery.of(context).size.width,
+                height: 1,
               ),
               const SizedBox(
                 height: 18,
