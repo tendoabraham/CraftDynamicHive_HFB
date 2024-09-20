@@ -82,7 +82,7 @@ class VerticalModule extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: 11, fontFamily: "Manrope"),
           ),
         )
       ],

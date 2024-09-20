@@ -360,8 +360,8 @@ class _DynamicButtonState extends State<DynamicButton> {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Consumer<PluginState>(builder: (context, state, child) {
             return state.loadingNetworkData
-                ? const SpinKitSpinningLines(
-                    color: primaryColor,
+                ? SpinKitSpinningLines(
+                    color: APIService.appPrimaryColor,
                     duration: Duration(milliseconds: 2000),
                     size: 40,
                   )
@@ -1382,14 +1382,13 @@ class DynamicListWidget implements IFormWidget {
               builder: (BuildContext context,
                   AsyncSnapshot<DynamicResponse?> snapshot) {
                 Widget child = Center(
-                  child: CircularLoadUtil(),
-                );
+                    child: SpinKitSpinningLines(
+                  color: APIService.appPrimaryColor,
+                  duration: Duration(milliseconds: 2000),
+                  size: 40,
+                ));
                 if (snapshot.hasData) {
                   dynamicResponse = snapshot.data;
-                  // DynamicPostCall.processDynamicResponse(
-                  //     dynamicResponse?.dynamicData,
-                  //     context,
-                  //     formItem?.controlId);
 
                   child = ListWidget(
                     dynamicList: dynamicResponse?.dynamicList,
