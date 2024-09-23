@@ -7,6 +7,7 @@ class ConfirmationForm {
     final formKey = GlobalKey<FormState>();
 
     return showModalBottomSheet<void>(
+      backgroundColor: Color(0xffFFF9D9),
       showDragHandle: true,
       context: context,
       builder: (BuildContext context) {
@@ -14,27 +15,40 @@ class ConfirmationForm {
             padding:
                 const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 4),
             decoration: const BoxDecoration(
+                color: Color(0xffFFF9D9),
                 image: DecorationImage(
-              opacity: .1,
-              image: AssetImage(
-                'assets/launcher.png',
-              ),
-            )),
+                  opacity: .1,
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/launcher.png',
+                  ),
+                )),
             child: Column(
               children: [
+                SizedBox(
+                  height: 8,
+                ),
                 Row(
                   children: [
                     const Text(
-                      "Confirm Transaction",
-                      style: TextStyle(fontSize: 20),
+                      "   Confirm Transaction",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "DMSans"),
                     ),
                     const Spacer(),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(1);
                       },
-                      child: const Row(
-                          children: [Icon(Icons.close), Text("Cancel")]),
+                      child: const Row(children: [
+                        Icon(Icons.close),
+                        Text(
+                          "Cancel",
+                          style: TextStyle(fontFamily: "DMSans"),
+                        )
+                      ]),
                     ),
                   ],
                 ),
