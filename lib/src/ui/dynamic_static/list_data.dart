@@ -53,14 +53,11 @@ class ListDataScreen extends StatelessWidget {
                       topRight: Radius.circular(30),
                       topLeft: Radius.circular(30)),
                   child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 16),
+                      padding: const EdgeInsets.only(top: 16),
                       color: primaryLightVariant,
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      child: Expanded(
-                        child: widget,
-                      ))))
+                      child: widget)))
         ],
       ),
     );
