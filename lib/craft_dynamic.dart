@@ -91,6 +91,8 @@ import 'src/util/widget_util.dart';
 import '/src/ui/dynamic_static/grouped_button.dart';
 import '/src/ui/dynamic_static/list_screen.dart';
 import '/src/providers/group_button_provider.dart';
+import 'package:hfbbank/screens/home/components/Data.dart';
+import 'package:hfbbank/screens/home/components/quick_pay.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 part 'src/network/dynamic_postcall.dart';

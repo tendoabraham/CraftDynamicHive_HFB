@@ -77,7 +77,7 @@ class VerticalModule extends StatelessWidget {
         // Use Flexible to ensure the text doesn't overflow
         Flexible(
           child: Text(
-            moduleItem.moduleName,
+            formatModuleName(moduleItem.moduleName),
             softWrap: true,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
@@ -91,6 +91,30 @@ class VerticalModule extends StatelessWidget {
 
   Color? getMenuColor(context) =>
       Provider.of<PluginState>(context, listen: false).menuColor;
+
+  String formatModuleName(String moduleName) {
+    List<String> parts = moduleName.split(' ');
+
+    if (parts.length > 2) {
+      // Check the length of the second string
+      if (parts[1].length > 4) {
+        // Move the second string to the next line
+        return '${parts[0]}\n${parts[1]} ${parts.sublist(2).join(' ')}';
+      } else {
+        // Move the third string to the next line
+        return '${parts[0]} ${parts[1]}\n${parts.sublist(2).join(' ')}';
+      }
+    } else if (parts.length == 2) {
+      // Handle case where there are only two words
+      if (parts[1].length > 2) {
+        return '${parts[0]}\n${parts[1]}';
+      } else {
+        return moduleName; // No change needed
+      }
+    }
+
+    return moduleName; // Return unchanged if only one word
+  }
 }
 
 class HorizontalModule extends StatelessWidget {
@@ -241,6 +265,20 @@ class ModuleUtil {
               context: context,
               widget: ViewStandingOrder(moduleItem: moduleItem));
           break;
+        }
+      case ModuleId.MTNDATA:
+        {
+          {
+            CommonUtils.navigateToRoute(context: context, widget: Data());
+            break;
+          }
+        }
+      case ModuleId.QUICKPAY:
+        {
+          {
+            CommonUtils.navigateToRoute(context: context, widget: QuickPay());
+            break;
+          }
         }
       case ModuleId.BOOKCAB:
         {

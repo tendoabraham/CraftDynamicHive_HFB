@@ -1603,7 +1603,10 @@ class _DynamicCheckBoxState extends State<DynamicCheckBox> {
   Widget build(BuildContext context) {
     formItem = BaseFormInheritedComponent.of(context)?.formItem;
     return CheckboxFormField(
-        title: Text(formItem?.controlText ?? ""),
+        title: Text(
+          formItem?.controlText ?? "",
+          style: TextStyle(fontSize: 12, fontFamily: "Manrope"),
+        ),
         validator: (value) {
           validate(value);
           return null;
@@ -1628,12 +1631,30 @@ class CheckboxFormField extends FormField<bool> {
             initialValue: initialValue,
             builder: (FormFieldState<bool> state) {
               return CheckboxListTile(
-                dense: state.hasError,
+                dense: true, // Reduces the vertical padding
                 title: title,
                 value: state.value,
                 onChanged: state.didChange,
-                controlAffinity: ListTileControlAffinity.platform,
+                controlAffinity:
+                    ListTileControlAffinity.leading, // Checkbox precedes text
+                activeColor:
+                    APIService.appPrimaryColor, // Selected checkbox color
+                checkColor: Colors.white, // Inside checkbox color when selected
+                side: BorderSide(
+                    color: APIService
+                        .appPrimaryColor), // Unselected checkbox border color
+                contentPadding: EdgeInsets
+                    .zero, // Reduces default padding around the checkbox
               );
+              //   CheckboxListTile(
+              //   contentPadding: EdgeInsets.zero,
+              //   tileColor: APIService.appPrimaryColor,
+              //   dense: state.hasError,
+              //   title: title,
+              //   value: state.value,
+              //   onChanged: state.didChange,
+              //   controlAffinity: ListTileControlAffinity.leading,
+              // );
             });
 }
 

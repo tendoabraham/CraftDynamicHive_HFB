@@ -121,13 +121,10 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 16),
                                         color: primaryLightVariant,
-                                        height: MediaQuery.of(context)
-                                            .size
-                                            .height,
-                                        width: MediaQuery.of(
-                                                context)
-                                            .size
-                                            .width,
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         child: GridView.builder(
                                             // physics: const NeverScrollableScrollPhysics(),
                                             padding: const EdgeInsets.only(
@@ -139,20 +136,11 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                             itemCount: modules.length,
                                             gridDelegate:
                                                 SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: blockSpacing
-                                                            ?.axisCount ??
-                                                        4,
-                                                    crossAxisSpacing:
-                                                        blockSpacing
-                                                                ?.crossAxis ??
-                                                            1,
-                                                    mainAxisSpacing:
-                                                        blockSpacing?.mainAxis ??
-                                                            20,
-                                                    childAspectRatio: widget
-                                                            .moduleItem
-                                                            ?.blockAspectRatio ??
-                                                        .9),
+                                              crossAxisCount: 4,
+                                              crossAxisSpacing: 1,
+                                              mainAxisSpacing: 20,
+                                              mainAxisExtent: 100,
+                                            ),
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               var module = modules[index];

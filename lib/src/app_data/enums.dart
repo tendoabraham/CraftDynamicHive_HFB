@@ -158,7 +158,9 @@ enum ModuleId {
   SECRETQUESTIONS,
   SECRETQUESTIONSCHECK,
   FORGOTPIN,
-  MAIN
+  MAIN,
+  QUICKPAY,
+  MTNDATA
 }
 
 enum LittleProduct {
