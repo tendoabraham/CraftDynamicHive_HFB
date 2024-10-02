@@ -98,7 +98,6 @@ class FormsListWidget extends StatelessWidget {
               child = TabWidget(
                 title: "test",
                 formItems: filteredFormItems,
-                isSkyBlueTheme: isSkyBlueTheme,
                 moduleItem: moduleItem,
               );
             } else if (isRadioWidget) {
@@ -111,7 +110,6 @@ class FormsListWidget extends StatelessWidget {
             } else if (isStepperWigdet) {
               child = StepperFormWidget(
                 moduleItem: moduleItem,
-                isSkyBlueTheme: isSkyBlueTheme,
                 formItems: filteredFormItems,
               );
             } else {
