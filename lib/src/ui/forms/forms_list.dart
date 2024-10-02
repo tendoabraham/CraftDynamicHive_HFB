@@ -17,6 +17,7 @@ class FormsListWidget extends StatelessWidget {
   bool? deleteInput;
   int? nextFormSequence;
   List<dynamic>? jsonDisplay, formFields;
+  final bool isSkyBlueTheme;
 
   FormsListWidget(
       {Key? key,
@@ -25,7 +26,8 @@ class FormsListWidget extends StatelessWidget {
       this.formFields,
       this.nextFormSequence,
       this.isWizard = false,
-      this.deleteInput})
+      this.deleteInput,
+      this.isSkyBlueTheme = false})
       : super(key: key);
 
   int? currentForm;
@@ -96,17 +98,20 @@ class FormsListWidget extends StatelessWidget {
               child = TabWidget(
                 title: "test",
                 formItems: filteredFormItems,
+                isSkyBlueTheme: isSkyBlueTheme,
                 moduleItem: moduleItem,
               );
             } else if (isRadioWidget) {
               child = RadioWidget(
                 title: "test",
                 formItems: filteredFormItems,
+                isSkyBlueTheme: isSkyBlueTheme,
                 moduleItem: moduleItem,
               );
             } else if (isStepperWigdet) {
               child = StepperFormWidget(
                 moduleItem: moduleItem,
+                isSkyBlueTheme: isSkyBlueTheme,
                 formItems: filteredFormItems,
               );
             } else {
@@ -114,6 +119,7 @@ class FormsListWidget extends StatelessWidget {
                 moduleItem: moduleItem,
                 sortedForms: sortedForms,
                 jsonDisplay: jsonDisplay,
+                isSkyBlueTheme: isSkyBlueTheme,
                 formFields: formFields,
                 hasRecentList: hasRecentList,
               );

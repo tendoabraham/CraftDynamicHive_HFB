@@ -78,6 +78,18 @@ class CommonSharedPref {
     return false;
   }
 
+  setSkyBlueTheme(bool skyblue) async {
+    await storage.write(key: "skyblue", value: skyblue.toString());
+  }
+
+  Future<bool> checkSkyBlueTheme() async {
+    var value = await storage.read(key: "skyblue");
+    if (value == "true") {
+      return true;
+    }
+    return false;
+  }
+
   getUserAccountInfo(UserAccountData key) async =>
       await storage.read(key: key.name);
 

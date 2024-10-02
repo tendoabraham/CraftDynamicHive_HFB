@@ -12,13 +12,14 @@ class ModulesListWidget extends StatefulWidget {
   Orientation orientation;
   ModuleItem? moduleItem;
   FrequentAccessedModule? favouriteModule;
+  final bool isSkyBlueTheme;
 
-  ModulesListWidget({
-    super.key,
-    required this.orientation,
-    required this.moduleItem,
-    this.favouriteModule,
-  });
+  ModulesListWidget(
+      {super.key,
+      required this.orientation,
+      required this.moduleItem,
+      this.favouriteModule,
+      this.isSkyBlueTheme = false});
 
   @override
   State<ModulesListWidget> createState() => _ModulesListWidgetState();
@@ -120,7 +121,9 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                     child: Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 16),
-                                        color: primaryLightVariant,
+                                        color: widget.isSkyBlueTheme
+                                            ? primaryLight
+                                            : primaryLightVariant,
                                         height:
                                             MediaQuery.of(context).size.height,
                                         width:

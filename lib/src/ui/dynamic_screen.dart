@@ -8,17 +8,18 @@ class DynamicWidget extends StatelessWidget {
   ModuleItem? moduleItem;
   FrequentAccessedModule? favouriteModule;
   String? formID;
+  final bool isSkyBlueTheme;
 
-  DynamicWidget({
-    super.key,
-    this.moduleItem,
-    this.favouriteModule,
-    this.jsonDisplay,
-    this.formFields,
-    this.nextFormSequence,
-    this.formID,
-    this.isWizard = false,
-  });
+  DynamicWidget(
+      {super.key,
+      this.moduleItem,
+      this.favouriteModule,
+      this.jsonDisplay,
+      this.formFields,
+      this.nextFormSequence,
+      this.formID,
+      this.isWizard = false,
+      this.isSkyBlueTheme = false});
 
   List<FormItem> content = [];
 
@@ -38,9 +39,11 @@ class DynamicWidget extends StatelessWidget {
             nextFormSequence: nextFormSequence,
             isWizard: isWizard,
             moduleItem: moduleItem!,
+            isSkyBlueTheme: isSkyBlueTheme,
           )
         : ModulesListWidget(
             orientation: orientation,
+            isSkyBlueTheme: isSkyBlueTheme,
             moduleItem: moduleItem,
           );
   }

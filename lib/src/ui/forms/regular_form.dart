@@ -17,6 +17,7 @@ class RegularFormWidget extends StatefulWidget {
   final List<FormItem> sortedForms;
   final List<dynamic>? jsonDisplay, formFields;
   final bool hasRecentList;
+  final bool isSkyBlueTheme;
 
   const RegularFormWidget(
       {super.key,
@@ -24,7 +25,8 @@ class RegularFormWidget extends StatefulWidget {
       required this.sortedForms,
       required this.jsonDisplay,
       required this.formFields,
-      this.hasRecentList = false});
+      this.hasRecentList = false,
+      this.isSkyBlueTheme = false});
 
   @override
   State<RegularFormWidget> createState() => _RegularFormWidgetState();
@@ -131,7 +133,9 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                             child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 16),
-                                color: primaryLightVariant,
+                                color: widget.isSkyBlueTheme
+                                    ? primaryLight
+                                    : primaryLightVariant,
                                 height: MediaQuery.of(context).size.height,
                                 width: MediaQuery.of(context).size.width,
                                 child: Form(

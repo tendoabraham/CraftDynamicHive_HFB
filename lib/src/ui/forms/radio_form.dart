@@ -17,13 +17,15 @@ class RadioWidget extends StatefulWidget {
   String title;
   ModuleItem moduleItem;
   Function? updateState;
+  final bool isSkyBlueTheme;
 
   RadioWidget(
       {super.key,
       required this.title,
       required this.formItems,
       required this.moduleItem,
-      this.updateState});
+      this.updateState,
+      this.isSkyBlueTheme = false});
 
   @override
   State<RadioWidget> createState() => _RadioWidgetState();
@@ -124,7 +126,9 @@ class _RadioWidgetState extends State<RadioWidget> {
                         child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 5, vertical: 16),
-                            color: primaryLightVariant,
+                            color: widget.isSkyBlueTheme
+                                ? primaryLight
+                                : primaryLightVariant,
                             height: MediaQuery.of(context).size.height,
                             width: MediaQuery.of(context).size.width,
                             child: RadioWidgetList(

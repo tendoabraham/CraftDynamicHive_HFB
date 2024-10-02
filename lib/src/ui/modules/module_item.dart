@@ -186,8 +186,10 @@ class HorizontalModule extends StatelessWidget {
 class ModuleUtil {
   static final _dynamicRequest = DynamicFormRequest();
 
-  static onItemClick(ModuleItem moduleItem, BuildContext context) {
+  static Future<void> onItemClick(
+      ModuleItem moduleItem, BuildContext context) async {
     bool isDisabled = moduleItem.isDisabled ?? false;
+    bool isSkyBlueTheme = await CommonSharedPref().checkSkyBlueTheme();
 
     if (isDisabled) {
       CommonUtils.showToast("Coming soon");
@@ -269,14 +271,22 @@ class ModuleUtil {
       case ModuleId.MTNDATA:
         {
           {
-            CommonUtils.navigateToRoute(context: context, widget: Data());
+            CommonUtils.navigateToRoute(
+                context: context,
+                widget: Data(
+                  isSkyBlueTheme: isSkyBlueTheme,
+                ));
             break;
           }
         }
       case ModuleId.QUICKPAY:
         {
           {
-            CommonUtils.navigateToRoute(context: context, widget: QuickPay());
+            CommonUtils.navigateToRoute(
+                context: context,
+                widget: QuickPay(
+                  isSkyBlueTheme: isSkyBlueTheme,
+                ));
             break;
           }
         }
@@ -346,6 +356,7 @@ class ModuleUtil {
               context: context,
               widget: DynamicWidget(
                 moduleItem: moduleItem,
+                isSkyBlueTheme: isSkyBlueTheme,
               ));
         }
     }
