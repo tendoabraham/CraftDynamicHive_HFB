@@ -136,7 +136,6 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                 color: widget.isSkyBlueTheme
                                     ? primaryLight
                                     : primaryLightVariant,
-                                height: MediaQuery.of(context).size.height,
                                 width: MediaQuery.of(context).size.width,
                                 child: Form(
                                     key: _formKey,

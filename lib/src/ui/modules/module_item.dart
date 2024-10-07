@@ -264,8 +264,10 @@ class ModuleUtil {
       case ModuleId.STANDINGORDERVIEWDETAILS:
         {
           CommonUtils.navigateToRoute(
-              context: context,
-              widget: ViewStandingOrder(moduleItem: moduleItem));
+              context: context, widget: StandingOrderScreen());
+          // CommonUtils.navigateToRoute(
+          //     context: context,
+          //     widget: ViewStandingOrder(moduleItem: moduleItem));
           break;
         }
       case ModuleId.MTNDATA:

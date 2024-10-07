@@ -7,18 +7,25 @@ import 'package:provider/provider.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/util/widget_util.dart';
 
+const primaryColor = Color(0xff2532A1);
+const secondaryAccent = Color(0xffF6B700);
+const primaryLight = Color(0xffD3EFFF);
+const primaryLightVariant = Color(0xffFFF9D9);
+
 class TabWidget extends StatefulWidget {
   List<FormItem> formItems;
   String title;
   ModuleItem moduleItem;
   Function? updateState;
+  final bool isSkyBlueTheme;
 
   TabWidget(
       {super.key,
       required this.title,
       required this.formItems,
       required this.moduleItem,
-      this.updateState});
+      this.updateState,
+      this.isSkyBlueTheme = false});
 
   @override
   State<TabWidget> createState() => _TabWidgetState();
@@ -150,33 +157,111 @@ class _TabWidgetState extends State<TabWidget> {
                 }
               });
               return Scaffold(
-                appBar: AppBar(
-                  elevation: 2,
-                  actions: recentList != null
-                      ? [
-                          IconButton(
-                              onPressed: () {
-                                CommonUtils.navigateToRoute(
-                                    context: context,
-                                    widget: ListDataScreen(
-                                        widget: DynamicListWidget(
-                                                moduleItem: widget.moduleItem,
-                                                formItem: recentList)
-                                            .render(),
-                                        title: widget.moduleItem.moduleName));
-                              },
-                              icon: const Icon(
-                                Icons.view_list,
-                              ))
-                        ]
-                      : null,
-                  bottom: TabBar(
-                    tabs: tabs,
-                    isScrollable: true,
-                  ),
-                  title: Text(widget.moduleItem.moduleName),
+                backgroundColor: primaryColor,
+                // appBar: AppBar(
+                //   elevation: 2,
+                //   actions: recentList != null
+                //       ? [
+                //           IconButton(
+                //               onPressed: () {
+                //                 CommonUtils.navigateToRoute(
+                //                     context: context,
+                //                     widget: ListDataScreen(
+                //                         widget: DynamicListWidget(
+                //                                 moduleItem: widget.moduleItem,
+                //                                 formItem: recentList)
+                //                             .render(),
+                //                         title: widget.moduleItem.moduleName));
+                //               },
+                //               icon: const Icon(
+                //                 Icons.view_list,
+                //               ))
+                //         ]
+                //       : null,
+                //   bottom: TabBar(
+                //     tabs: tabs,
+                //     isScrollable: true,
+                //   ),
+                //   title: Text(widget.moduleItem.moduleName),
+                // ),
+                body: Column(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(
+                            left: 18, right: 10, bottom: 0, top: 36),
+                        color: primaryColor,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            InkWell(
+                                onTap: () {
+                                  // Scaffold.of(context).openDrawer();
+                                  Navigator.of(context).pop();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_sharp,
+                                  size: 24,
+                                  color: Colors.white,
+                                )),
+                            Spacer(),
+                            Text(
+                              "${widget.moduleItem?.moduleName}",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "DMSans",
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Spacer(),
+                            Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: IconButton(
+                                    onPressed: () {
+                                      CommonUtils.navigateToRoute(
+                                          context: context,
+                                          widget: ListDataScreen(
+                                              widget: DynamicListWidget(
+                                                      moduleItem:
+                                                          widget.moduleItem,
+                                                      formItem: recentList)
+                                                  .render(),
+                                              title: widget
+                                                  .moduleItem.moduleName));
+                                    },
+                                    icon: const Icon(
+                                      Icons.view_list,
+                                      color: Colors.white,
+                                    ))),
+                            // )
+                          ],
+                        )),
+                    Container(
+                        width: double.infinity,
+                        color:
+                            primaryColor, // Add a background color for debugging
+                        child: Center(
+                          child: TabBar(
+                            tabs: tabs,
+                            dividerColor: primaryColor,
+                            isScrollable: true,
+                          ),
+                        )),
+                    Expanded(
+                        child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30)),
+                            child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 16),
+                                color: widget.isSkyBlueTheme
+                                    ? primaryLight
+                                    : primaryLightVariant,
+                                width: MediaQuery.of(context).size.width,
+                                child: TabBarView(children: tabWidgetList))))
+                  ],
                 ),
-                body: TabBarView(children: tabWidgetList),
               );
             })));
   }
