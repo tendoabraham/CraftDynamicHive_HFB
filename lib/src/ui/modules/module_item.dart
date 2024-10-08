@@ -264,7 +264,10 @@ class ModuleUtil {
       case ModuleId.STANDINGORDERVIEWDETAILS:
         {
           CommonUtils.navigateToRoute(
-              context: context, widget: StandingOrderScreen());
+              context: context,
+              widget: StandingOrderScreen(
+                isSkyBlueTheme: isSkyBlueTheme,
+              ));
           // CommonUtils.navigateToRoute(
           //     context: context,
           //     widget: ViewStandingOrder(moduleItem: moduleItem));
