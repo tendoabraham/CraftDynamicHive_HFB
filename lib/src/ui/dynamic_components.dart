@@ -831,6 +831,9 @@ class _DropDownState extends State<DropDown> {
                       ),
                     );
                   }).toList();
+                  dropdownPicks.sort((a, b) => (a.child as Text)
+                      .data!
+                      .compareTo((b.child as Text).data!));
                   dropdownPicks.toSet().toList();
 
                   if (dropdownPicks.isNotEmpty &&
