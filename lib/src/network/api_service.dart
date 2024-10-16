@@ -470,7 +470,7 @@ class APIService {
       key,
       merchantID,
       serviceName,
-      RouteUrl url = RouteUrl.auth}) async {
+      RouteUrl url = RouteUrl.other}) async {
     var decrypted;
     // final encryptedKey = CryptLib.encryptField(key);
     ActivationResponse? activationResponse;
