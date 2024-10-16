@@ -135,7 +135,7 @@ class AuthRepository {
       key,
       merchantID,
       serviceName,
-      RouteUrl route = RouteUrl.auth}) async {
+      RouteUrl route = RouteUrl.other}) async {
     return await _services.standardOTPVerify(
         mobileNumber: mobileNumber,
         key: key,

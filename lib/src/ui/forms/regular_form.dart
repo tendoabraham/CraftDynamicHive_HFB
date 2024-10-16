@@ -69,64 +69,61 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
             backgroundColor: primaryColor,
             body: SizedBox(
                 height: double.infinity,
-                child: Scrollbar(
-                    thickness: 6,
-                    controller: _scrollController,
-                    child: SingleChildScrollView(
-                        child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                            padding: EdgeInsets.only(
-                                left: 18, right: 10, bottom: 6, top: 30),
-                            color: primaryColor,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                InkWell(
-                                    onTap: () {
-                                      // Scaffold.of(context).openDrawer();
-                                      Navigator.of(context).pop();
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(
+                            left: 18, right: 10, bottom: 6, top: 30),
+                        color: primaryColor,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            InkWell(
+                                onTap: () {
+                                  // Scaffold.of(context).openDrawer();
+                                  Navigator.of(context).pop();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_sharp,
+                                  size: 24,
+                                  color: Colors.white,
+                                )),
+                            Spacer(),
+                            Text(
+                              "${widget.moduleItem?.moduleName}",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "DMSans",
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Spacer(),
+                            Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: IconButton(
+                                    onPressed: () {
+                                      CommonUtils.navigateToRoute(
+                                          context: context,
+                                          widget: ListDataScreen(
+                                              widget: DynamicListWidget(
+                                                      moduleItem:
+                                                          widget.moduleItem,
+                                                      formItem: recentList)
+                                                  .render(),
+                                              title: widget
+                                                  .moduleItem.moduleName));
                                     },
-                                    child: Icon(
-                                      Icons.arrow_back_sharp,
-                                      size: 24,
+                                    icon: const Icon(
+                                      Icons.view_list,
                                       color: Colors.white,
-                                    )),
-                                Spacer(),
-                                Text(
-                                  "${widget.moduleItem?.moduleName}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: "DMSans",
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Spacer(),
-                                Padding(
-                                    padding: const EdgeInsets.all(0),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          CommonUtils.navigateToRoute(
-                                              context: context,
-                                              widget: ListDataScreen(
-                                                  widget: DynamicListWidget(
-                                                          moduleItem:
-                                                              widget.moduleItem,
-                                                          formItem: recentList)
-                                                      .render(),
-                                                  title: widget
-                                                      .moduleItem.moduleName));
-                                        },
-                                        icon: const Icon(
-                                          Icons.view_list,
-                                          color: Colors.white,
-                                        ))),
-                                // )
-                              ],
-                            )),
-                        ClipRRect(
+                                    ))),
+                            // )
+                          ],
+                        )),
+                    Expanded(
+                        child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(30),
                                 topLeft: Radius.circular(30)),
@@ -137,30 +134,38 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                     ? primaryLight
                                     : primaryLightVariant,
                                 width: MediaQuery.of(context).size.width,
-                                child: Form(
-                                    key: _formKey,
-                                    child: ListView.builder(
-                                        padding: const EdgeInsets.only(
-                                            left: 16, right: 16, top: 8),
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: formItems.length,
-                                        itemBuilder: (context, index) {
-                                          return BaseFormComponent(
-                                              formItem: formItems[index],
-                                              moduleItem: widget.moduleItem,
-                                              formItems: formItems,
-                                              formKey: _formKey,
-                                              child: IFormWidget(
-                                                      formItems[index],
-                                                      jsonText:
-                                                          widget.jsonDisplay,
-                                                      formFields:
-                                                          widget.formFields)
-                                                  .render());
-                                        }))))
-                      ],
-                    ))))));
+                                child: Scrollbar(
+                                    thickness: 6,
+                                    controller: _scrollController,
+                                    child: SingleChildScrollView(
+                                        child: Form(
+                                            key: _formKey,
+                                            child: ListView.builder(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8),
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                itemCount: formItems.length,
+                                                itemBuilder: (context, index) {
+                                                  return BaseFormComponent(
+                                                      formItem:
+                                                          formItems[index],
+                                                      moduleItem:
+                                                          widget.moduleItem,
+                                                      formItems: formItems,
+                                                      formKey: _formKey,
+                                                      child: IFormWidget(
+                                                              formItems[index],
+                                                              jsonText: widget
+                                                                  .jsonDisplay,
+                                                              formFields: widget
+                                                                  .formFields)
+                                                          .render());
+                                                })))))))
+                  ],
+                ))));
   }
 }
