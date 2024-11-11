@@ -66,10 +66,10 @@ class VerticalModule extends StatelessWidget {
           color: Colors.white,
           shadowColor: Colors.black,
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(10),
             child: MenuItemImage(
               imageUrl: moduleItem.moduleUrl ?? "",
-              iconSize: 25,
+              iconSize: 32,
             ),
           ),
         ),
