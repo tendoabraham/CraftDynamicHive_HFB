@@ -3,7 +3,7 @@
 import 'package:craft_dynamic/src/ui/dynamic_static/list_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:io';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/util/widget_util.dart';
 
@@ -187,8 +187,11 @@ class _TabWidgetState extends State<TabWidget> {
                 body: Column(
                   children: [
                     Container(
-                        padding: EdgeInsets.only(
-                            left: 18, right: 10, bottom: 0, top: 36),
+                        padding: Platform.isAndroid
+                            ? EdgeInsets.only(
+                                left: 18, right: 10, bottom: 4, top: 36)
+                            : EdgeInsets.only(
+                                left: 18, right: 10, bottom: 2, top: 50),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(

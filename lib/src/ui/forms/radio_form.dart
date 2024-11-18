@@ -2,7 +2,7 @@
 
 import 'package:craft_dynamic/src/ui/dynamic_static/list_data.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/util/widget_util.dart';
 import 'package:provider/provider.dart';
@@ -70,8 +70,11 @@ class _RadioWidgetState extends State<RadioWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                        padding: EdgeInsets.only(
-                            left: 18, right: 10, bottom: 6, top: 30),
+                        padding: Platform.isAndroid
+                            ? EdgeInsets.only(
+                                left: 18, right: 10, bottom: 4, top: 30)
+                            : EdgeInsets.only(
+                                left: 18, right: 10, bottom: 2, top: 45),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
