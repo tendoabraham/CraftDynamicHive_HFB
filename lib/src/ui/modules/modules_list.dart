@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
 const primaryColor = Color(0xff2532A1);
 const secondaryAccent = Color(0xffF6B700);
@@ -65,11 +66,17 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                             child: Column(
                               children: [
                                 Container(
-                                    padding: EdgeInsets.only(
-                                        left: 24,
-                                        right: 24,
-                                        bottom: 16,
-                                        top: 40),
+                                    padding: Platform.isAndroid
+                                        ? EdgeInsets.only(
+                                            left: 24,
+                                            right: 24,
+                                            bottom: 8,
+                                            top: 35)
+                                        : EdgeInsets.only(
+                                            left: 24,
+                                            right: 24,
+                                            bottom: 8,
+                                            top: 50),
                                     color: primaryColor,
                                     width: MediaQuery.of(context).size.width,
                                     child: Row(
