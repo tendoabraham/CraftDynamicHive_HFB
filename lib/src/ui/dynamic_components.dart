@@ -1279,6 +1279,8 @@ class _DynamicPhonePickerFormWidgetState
 
   var controller = TextEditingController();
   PhoneNumber inputNumber = PhoneNumber(isoCode: APIService.countryIsoCode);
+  final FlutterNativeContactPicker _contactPicker =
+      FlutterNativeContactPicker();
 
   @override
   Widget build(BuildContext context) {
@@ -1333,16 +1335,34 @@ class _DynamicPhonePickerFormWidgetState
   }
 
   pickPhoneContact() async {
-    final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
-    setState(() {
-      controller.text = formatPhone(contact.phoneNumber?.number ?? "")
-          .replaceAll(RegExp(r'^0'), '');
-    });
+    try {
+      final Contact? contact = await _contactPicker.selectPhoneNumber();
+      if (contact != null) {
+        setState(() {
+          controller.text = formatPhone(contact.selectedPhoneNumber ?? "")
+              .replaceAll(RegExp(r'^0'), '');
+        });
+      }
+    } catch (e) {
+      print("Failed to pick contact: $e");
+    }
   }
 
   String formatPhone(String phone) {
-    return phone.replaceAll(RegExp(r'\+\d{1,3}'), '');
+    String noSpace = phone.replaceAll(' ', '');
+    return noSpace.replaceAll(RegExp(r'\+\d{1,3}'), '');
   }
+  // pickPhoneContact() async {
+  //   final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
+  //   setState(() {
+  //     controller.text = formatPhone(contact.phoneNumber?.number ?? "")
+  //         .replaceAll(RegExp(r'^0'), '');
+  //   });
+  // }
+
+  // String formatPhone(String phone) {
+  //   return phone.replaceAll(RegExp(r'\+\d{1,3}'), '');
+  // }
 }
 
 class DynamicListWidget implements IFormWidget {
