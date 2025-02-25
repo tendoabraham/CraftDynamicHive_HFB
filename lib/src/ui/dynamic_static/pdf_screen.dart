@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:math';
 import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -115,38 +115,87 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
     );
   }
 
-  saveFile(BuildContext context, {isDownload = true}) async {
-    if (Platform.isAndroid) {
-      try {
-        String receiptPath = "";
-        String receipt = "${widget.pdfName}.pdf";
+  // saveFile(BuildContext context, {isDownload = true}) async {
+  //   if (Platform.isAndroid) {
+  //     try {
+  //       String receiptPath = "";
+  //       String receipt = "${widget.pdfName}.pdf";
+  //
+  //       Directory directory = Directory("");
+  //       directory = Directory("/storage/emulated/0/Download");
+  //       AppLogger.appLogD(
+  //           tag: "pdf file",
+  //           message: "Copying file to ==========>${directory.path}");
+  //       receiptPath = "${directory.path}/$receipt";
+  //       await requestStoragePermission();
+  //       File(widget.path ?? "").copy(receiptPath).then((value) {
+  //         if (isDownload) {
+  //           CommonUtils.showActionSnackBar(
+  //             context: context,
+  //             message: "$receipt saved to download",
+  //           );
+  //         } else {
+  //           openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
+  //         }
+  //       });
+  //     } catch (e) {}
+  //   }
+  // }
 
-        Directory directory = Directory("");
-        directory = Directory("/storage/emulated/0/Download");
+  // requestStoragePermission() async {
+  //   var status = await Permission.storage.status;
+  //   if (!status.isGranted) {
+  //     await Permission.manageExternalStorage.request();
+  //   }
+  // }
+
+  saveFile(BuildContext context, {isDownload = true}) async {
+    try {
+      String receiptID = generateRandomFourDigitNumber();
+      String receiptPath = "";
+      String receipt = "${widget.pdfName}$receiptID.pdf";
+
+      Directory directory = Platform.isAndroid
+          ? Directory("")
+          : await getApplicationSupportDirectory();
+
+      if (Platform.isAndroid) {
+        directory = Directory("/storage/emulated/0/Documents");
         AppLogger.appLogD(
             tag: "pdf file",
             message: "Copying file to ==========>${directory.path}");
-        receiptPath = "${directory.path}/$receipt";
-        await requestStoragePermission();
-        File(widget.path ?? "").copy(receiptPath).then((value) {
-          if (isDownload) {
-            CommonUtils.showActionSnackBar(
-              context: context,
-              message: "$receipt saved to download",
-            );
-          } else {
-            openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
-          }
-        });
-      } catch (e) {}
-    }
+      }
+
+      receiptPath = "${directory.path}/$receipt";
+      await requestStoragePermission();
+      File(widget.path ?? "").copy(receiptPath).then((value) {
+        if (isDownload) {
+          CommonUtils.showActionSnackBar(
+            context: context,
+            message: "$receipt saved successfully",
+          );
+        } else {
+          openFile(receiptPath, widget.pdfName ?? "", isDownload: isDownload);
+        }
+      });
+    } catch (e) {}
   }
 
   requestStoragePermission() async {
     var status = await Permission.storage.status;
     if (!status.isGranted) {
+      print("Not Granted");
       await Permission.manageExternalStorage.request();
+    } else {
+      print("Granted");
     }
+  }
+
+  String generateRandomFourDigitNumber() {
+    Random random = Random();
+    int randomNumber =
+        1000 + random.nextInt(9000); // Generates a number between 1000 and 9999
+    return randomNumber.toString();
   }
 
   openFile(String filePath, String pdfName, {isDownload = true}) async {

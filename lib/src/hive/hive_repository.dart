@@ -327,6 +327,13 @@ class BeneficiaryRepository {
     }
   }
 
+  insertBeneficiary(List<Beneficiary> beneficiaries) async {
+    var box = await openBox();
+    for (var beneficiary in beneficiaries) {
+      box.put(beneficiary.rowId, beneficiary);
+    }
+  }
+
   Future<List<Beneficiary>>? getAllBeneficiaries() async {
     var box = await openBox();
     return box.values.toList();
