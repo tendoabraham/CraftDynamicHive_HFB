@@ -3,11 +3,15 @@ import 'package:craft_dynamic/src/network/dynamic_request.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+const primaryColor = Color(0xff2532A1);
 
 class OTPForm {
   static confirmOTPTransaction(context, ModuleItem moduleItem,
       FormItem? formItem, PreCallData? preCallData) {
     return showModalBottomSheet<void>(
+      backgroundColor: Color(0xffFFF9D9),
       showDragHandle: true,
       isScrollControlled: true,
       context: context,
@@ -48,7 +52,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: MediaQuery.of(context).viewInsets,
+        padding: EdgeInsets.all(16),
         child: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
@@ -57,8 +61,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
               'assets/launcher.png',
             ),
           )),
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 4),
+          // padding:
+          //     const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 4),
           child: Form(
               key: formKey,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -68,21 +72,31 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                     onPressed: () {
                       Navigator.of(context).pop(1);
                     },
-                    child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [Icon(Icons.close), Text("Cancel")]),
+                    child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                      Icon(Icons.close),
+                      Text(
+                        "Cancel",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "DMSans",
+                            fontWeight: FontWeight.bold),
+                      )
+                    ]),
                   ),
                 ),
                 const SizedBox(
-                  height: 12,
+                  height: 24,
                 ),
                 const Text(
                   "Enter OTP sent via sms/email to proceed with transaction",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: "DMSans",
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 24,
                 ),
                 Pinput(
                   length: 6,
@@ -96,8 +110,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                           fontSize: 20, fontWeight: FontWeight.bold),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(color: APIService.appPrimaryColor))),
+                          border: Border.all(
+                              color: APIService.appPrimaryColor, width: 1.5))),
                   controller: otpController,
                   onCompleted: (pin) {},
                   validator: (value) {
@@ -105,10 +119,14 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                   },
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 32,
                 ),
                 isLoading
-                    ? LoadUtil()
+                    ? SpinKitSpinningLines(
+                        color: primaryColor,
+                        duration: Duration(milliseconds: 2000),
+                        size: 40,
+                      )
                     : SizedBox(
                         width: 300,
                         child: WidgetFactory.buildButton(context, () {
@@ -116,6 +134,9 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                               widget.moduleItem, widget.preCallData, context);
                         }, "CONFIRM TRANSACTION",
                             color: APIService.appPrimaryColor)),
+                const SizedBox(
+                  height: 32,
+                ),
               ])),
         ));
   }
@@ -132,7 +153,8 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
             var obj = preCallData.requestObject;
             obj?["EncryptedFields"]
                 .addAll({"TrxOTP": CryptLib.encryptField(otpController.text)});
-            lastWebHeaderUsed.value = "purchase";
+            lastWebHeaderUsed.value = preCallData.webheader ?? "purchase";
+            // lastWebHeaderUsed.value = "purchase";
 
             await _dynamicRequest
                 .dynamicRequest(widget.moduleItem,
