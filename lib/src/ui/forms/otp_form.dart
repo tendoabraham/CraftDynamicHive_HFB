@@ -2,6 +2,7 @@ import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:craft_dynamic/src/network/dynamic_request.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -36,17 +37,27 @@ class ModalBottomSheet extends StatefulWidget {
   State<StatefulWidget> createState() => _ModalBottomSheetState();
 }
 
-class _ModalBottomSheetState extends State<ModalBottomSheet> {
+class _ModalBottomSheetState extends State<ModalBottomSheet> with CodeAutoFill {
   static final formKey = GlobalKey<FormState>();
   static final _dynamicRequest = DynamicFormRequest();
   static final otpController = TextEditingController();
   static bool isLoading = false;
+  String? code;
 
   @override
   void initState() {
     super.initState();
+    listenForCode();
     isLoading = false;
     otpController.clear();
+  }
+
+  @override
+  void codeUpdated() {
+    setState(() {
+      code = code;
+      otpController.text = code!;
+    });
   }
 
   @override
@@ -101,7 +112,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 Pinput(
                   length: 6,
                   obscureText: true,
-                  autofocus: true,
+                  autofocus: false,
                   defaultPinTheme: PinTheme(
                       height: 44,
                       width: 44,
@@ -113,7 +124,10 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                           border: Border.all(
                               color: APIService.appPrimaryColor, width: 1.5))),
                   controller: otpController,
-                  onCompleted: (pin) {},
+                  onCompleted: (pin) {
+                    confirmTransactionVerification(
+                        widget.moduleItem, widget.preCallData, context);
+                  },
                   validator: (value) {
                     return null;
                   },

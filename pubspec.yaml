@@ -74,6 +74,7 @@ dependencies:
   pinput: ^5.0.0
   pdf_render: ^1.4.0
   flutter_libphonenumber: ^2.5.0
+  sms_autofill: ^2.4.1
   # libphonenumber: ^2.0.2
 
 dev_dependencies:
