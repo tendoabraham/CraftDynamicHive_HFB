@@ -4,7 +4,7 @@ import 'package:craft_dynamic/craft_dynamic.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
+import 'package:pdfrx/pdfrx.dart' as pdfrx;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -13,8 +13,8 @@ class PDFScreen extends StatefulWidget {
   final String? path;
   final String? pdfName;
   final PdfDocument document;
-  bool downloadReceipt;
-  bool isShare;
+  final bool downloadReceipt;
+  final bool isShare;
 
   PDFScreen(
       {Key? key,
@@ -107,9 +107,15 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
                 height: 12,
               ),
               Expanded(
-                  child: PdfViewer.openFile(
-                widget.path ?? "",
-              ))
+                child: pdfrx.PdfViewer.file(
+                  widget.path ?? "",
+                ),
+              )
+
+              // Expanded(
+              //     child: PdfViewer.openFile(
+              //   widget.path ?? "",
+              // ))
             ],
           )),
     );
