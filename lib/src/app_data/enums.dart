@@ -160,7 +160,8 @@ enum ModuleId {
   FORGOTPIN,
   MAIN,
   QUICKPAY,
-  MTNDATA
+  MTNDATA,
+  AUTHENTICATOR
 }
 
 enum LittleProduct {

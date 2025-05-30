@@ -11,17 +11,59 @@ const primaryColor = Color(0xff2532A1);
 class OTPForm {
   static confirmOTPTransaction(context, ModuleItem moduleItem,
       FormItem? formItem, PreCallData? preCallData) {
-    return showModalBottomSheet<void>(
-      backgroundColor: Color(0xffFFF9D9),
-      showDragHandle: true,
-      isScrollControlled: true,
+    return showGeneralDialog(
       context: context,
-      builder: (BuildContext context) => ModalBottomSheet(
-        moduleItem: moduleItem,
-        formItem: formItem,
-        preCallData: preCallData,
-      ),
+      barrierDismissible: true,
+      barrierLabel: 'Dismiss',
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Padding(
+          padding: EdgeInsets.all(16),
+          child: Center(
+            child: Material(
+              color: const Color(0xffFFF9D9),
+              elevation: 24,
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                  ),
+                  child: ModalBottomSheet(
+                    moduleItem: moduleItem,
+                    formItem: formItem,
+                    preCallData: preCallData,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final curved =
+            CurvedAnimation(parent: animation, curve: Curves.easeOut);
+        return FadeTransition(
+          opacity: curved,
+          child: ScaleTransition(
+            scale: curved,
+            child: child,
+          ),
+        );
+      },
     );
+    //   showModalBottomSheet<void>(
+    //   backgroundColor: Color(0xffFFF9D9),
+    //   showDragHandle: true,
+    //   isScrollControlled: true,
+    //   context: context,
+    //   builder: (BuildContext context) => ModalBottomSheet(
+    //     moduleItem: moduleItem,
+    //     formItem: formItem,
+    //     preCallData: preCallData,
+    //   ),
+    // );
   }
 }
 
@@ -124,10 +166,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> with CodeAutoFill {
                           border: Border.all(
                               color: APIService.appPrimaryColor, width: 1.5))),
                   controller: otpController,
-                  onCompleted: (pin) {
-                    confirmTransactionVerification(
-                        widget.moduleItem, widget.preCallData, context);
-                  },
+                  onCompleted: (pin) {},
                   validator: (value) {
                     return null;
                   },

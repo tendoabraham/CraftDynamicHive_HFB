@@ -284,6 +284,17 @@ class ModuleUtil {
             break;
           }
         }
+      case ModuleId.AUTHENTICATOR:
+        {
+          {
+            CommonUtils.navigateToRoute(
+                context: context,
+                widget: AppAuthenticator(
+                  isSkyBlueTheme: isSkyBlueTheme,
+                ));
+            break;
+          }
+        }
       case ModuleId.QUICKPAY:
         {
           {
