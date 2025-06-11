@@ -1301,7 +1301,9 @@ class _DynamicPhonePickerFormWidgetState
           leadingPadding: 14),
       ignoreBlank: false,
       autoValidateMode: AutovalidateMode.disabled,
-      initialValue: inputNumber,
+      initialValue:
+          PhoneNumber(isoCode: 'UG'), // Set your desired fixed country
+      countries: ['UG'],
       textFieldController: controller,
       inputDecoration: InputDecoration(
           labelText: formItem?.controlText,
@@ -1328,9 +1330,9 @@ class _DynamicPhonePickerFormWidgetState
 
         return null;
       },
-      countries: (formItem?.countries?.isNotEmpty ?? false)
-          ? formItem?.countries
-          : null,
+      // countries: (formItem?.countries?.isNotEmpty ?? false)
+      //     ? formItem?.countries
+      //     : null,
     );
   }
 
