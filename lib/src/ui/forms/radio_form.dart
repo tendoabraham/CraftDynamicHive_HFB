@@ -65,30 +65,35 @@ class _RadioWidgetState extends State<RadioWidget> {
             backgroundColor: primaryColor,
             body: SizedBox(
                 height: double.infinity,
-                child: SingleChildScrollView(
-                    child: Column(
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
                         padding: Platform.isAndroid
                             ? EdgeInsets.only(
-                                left: 18, right: 10, bottom: 4, top: 30)
+                                left: 14, right: 10, bottom: 4, top: 30)
                             : EdgeInsets.only(
-                                left: 18, right: 10, bottom: 2, top: 45),
+                                left: 14, right: 10, bottom: 2, top: 45),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Icon(
-                                  Icons.arrow_back_sharp,
-                                  size: 24,
-                                  color: Colors.white,
-                                )),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Image.asset(
+                                "assets/images/back2.png",
+                                width: 30,
+                                color: Colors.white,
+                              ),
+                              // child: Icon(
+                              //   Icons.arrow_back_sharp,
+                              //   size: 24,
+                              //   color: Colors.white,
+                              // )
+                            ),
                             Spacer(),
                             Text(
                               "${widget.moduleItem?.moduleName}",
@@ -122,24 +127,25 @@ class _RadioWidgetState extends State<RadioWidget> {
                             // )
                           ],
                         )),
-                    ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            topLeft: Radius.circular(30)),
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 16),
-                            color: widget.isSkyBlueTheme
-                                ? primaryLight
-                                : primaryLightVariant,
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            child: RadioWidgetList(
-                              formItems: radioFormControls,
-                              moduleItem: widget.moduleItem,
-                            )))
+                    Expanded(
+                        child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(30),
+                                topLeft: Radius.circular(30)),
+                            child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 0),
+                                color: widget.isSkyBlueTheme
+                                    ? primaryLight
+                                    : primaryLightVariant,
+                                // height: MediaQuery.of(context).size.height,
+                                // width: MediaQuery.of(context).size.width,
+                                child: RadioWidgetList(
+                                  formItems: radioFormControls,
+                                  moduleItem: widget.moduleItem,
+                                ))))
                   ],
-                )))));
+                ))));
   }
 
   @override
@@ -184,8 +190,17 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
       chips.add(Expanded(
           flex: 1,
           child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 2),
+              margin: EdgeInsets.zero,
               child: ChoiceChip(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: index == 0 ? Radius.circular(12) : Radius.zero,
+                    bottomLeft: index == 0 ? Radius.circular(12) : Radius.zero,
+                    topRight: index == 1 ? Radius.circular(12) : Radius.zero,
+                    bottomRight: index == 1 ? Radius.circular(12) : Radius.zero,
+                  ),
+                ),
                 side: _value == index
                     ? null
                     : BorderSide(
@@ -250,58 +265,59 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
           return true;
         },
         child: SizedBox(
-            height: double.infinity,
+            // height: double.infinity,
+            // width: double.infinity,
             child: SingleChildScrollView(
                 child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 14, right: 14, top: 8),
-                    child: const Text(
-                      "Choose receipient",
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: "Manrope",
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+                child: const Text(
+                  "Choose receipient",
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: "Manrope",
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+                  child: Align(
+                      child: Row(
+                    children: chips,
+                  ))),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.zero,
+                color: APIService.appSecondaryColor,
+                width: MediaQuery.of(context).size.width,
+                height: 1,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Form(
+                  key: _formKey,
+                  child: ListView.builder(
+                      shrinkWrap: true,
                       padding:
-                          const EdgeInsets.only(left: 14, right: 14, top: 8),
-                      child: Align(
-                          child: Row(
-                        children: chips,
-                      ))),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 16, right: 16),
-                    color: APIService.appSecondaryColor,
-                    width: MediaQuery.of(context).size.width,
-                    height: 1,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Form(
-                      key: _formKey,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: sortedForms.length,
-                          itemBuilder: (context, index) {
-                            return BaseFormComponent(
-                                formItem: sortedForms[index],
-                                moduleItem: widget.moduleItem,
-                                formKey: _formKey,
-                                formItems: sortedForms,
-                                child: IFormWidget(
-                                  sortedForms[index],
-                                ).render());
-                          }))
-                ]))));
+                          const EdgeInsets.only(left: 16, right: 16, top: 4),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: sortedForms.length,
+                      itemBuilder: (context, index) {
+                        return BaseFormComponent(
+                            formItem: sortedForms[index],
+                            moduleItem: widget.moduleItem,
+                            formKey: _formKey,
+                            formItems: sortedForms,
+                            child: IFormWidget(
+                              sortedForms[index],
+                            ).render());
+                      }))
+            ]))));
   }
 }

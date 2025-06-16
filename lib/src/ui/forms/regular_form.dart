@@ -75,24 +75,30 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                     Container(
                         padding: Platform.isAndroid
                             ? EdgeInsets.only(
-                                left: 18, right: 10, bottom: 4, top: 30)
+                                left: 16, right: 10, bottom: 4, top: 30)
                             : EdgeInsets.only(
-                                left: 18, right: 10, bottom: 2, top: 45),
+                                left: 16, right: 10, bottom: 2, top: 45),
                         color: primaryColor,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             InkWell(
-                                onTap: () {
-                                  // Scaffold.of(context).openDrawer();
-                                  Navigator.of(context).pop();
-                                },
-                                child: Icon(
-                                  Icons.arrow_back_sharp,
-                                  size: 24,
-                                  color: Colors.white,
-                                )),
+                              onTap: () {
+                                // Scaffold.of(context).openDrawer();
+                                Navigator.of(context).pop();
+                              },
+                              child: Image.asset(
+                                "assets/images/back2.png",
+                                width: 30,
+                                color: Colors.white,
+                              ),
+                              // child: Icon(
+                              //   Icons.arrow_back_sharp,
+                              //   size: 24,
+                              //   color: Colors.white,
+                              // )
+                            ),
                             Spacer(),
                             Text(
                               "${widget.moduleItem?.moduleName}",
@@ -132,7 +138,7 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                 topLeft: Radius.circular(30)),
                             child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 16),
+                                    horizontal: 0, vertical: 0),
                                 color: widget.isSkyBlueTheme
                                     ? primaryLight
                                     : primaryLightVariant,
@@ -147,7 +153,7 @@ class _RegularFormWidgetState extends State<RegularFormWidget> {
                                                 padding: const EdgeInsets.only(
                                                     left: 16,
                                                     right: 16,
-                                                    top: 8),
+                                                    top: 16),
                                                 shrinkWrap: true,
                                                 physics:
                                                     const NeverScrollableScrollPhysics(),

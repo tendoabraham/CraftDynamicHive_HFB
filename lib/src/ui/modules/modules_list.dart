@@ -68,13 +68,13 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                 Container(
                                     padding: Platform.isAndroid
                                         ? EdgeInsets.only(
-                                            left: 24,
-                                            right: 24,
+                                            left: 18,
+                                            right: 18,
                                             bottom: 8,
                                             top: 35)
                                         : EdgeInsets.only(
-                                            left: 24,
-                                            right: 24,
+                                            left: 18,
+                                            right: 18,
                                             bottom: 8,
                                             top: 50),
                                     color: primaryColor,
@@ -84,15 +84,16 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         InkWell(
-                                            onTap: () {
-                                              // Scaffold.of(context).openDrawer();
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Icon(
-                                              Icons.arrow_back_sharp,
-                                              size: 24,
-                                              color: Colors.white,
-                                            )),
+                                          onTap: () {
+                                            // Scaffold.of(context).openDrawer();
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Image.asset(
+                                            "assets/images/back2.png",
+                                            width: 30,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                         Spacer(),
                                         Text(
                                           widget.favouriteModule == null
@@ -127,7 +128,7 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                         topLeft: Radius.circular(30)),
                                     child: Container(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 16),
+                                            horizontal: 0, vertical: 0),
                                         color: widget.isSkyBlueTheme
                                             ? primaryLight
                                             : primaryLightVariant,
@@ -138,9 +139,9 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                         child: GridView.builder(
                                             // physics: const NeverScrollableScrollPhysics(),
                                             padding: const EdgeInsets.only(
-                                                left: 14,
-                                                right: 14,
-                                                top: 8,
+                                                left: 8,
+                                                right: 8,
+                                                top: 16,
                                                 bottom: 8),
                                             shrinkWrap: true,
                                             itemCount: modules.length,
@@ -148,7 +149,7 @@ class _ModulesListWidgetState extends State<ModulesListWidget> {
                                                 SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 4,
                                               crossAxisSpacing: 1,
-                                              mainAxisSpacing: 20,
+                                              mainAxisSpacing: 16,
                                               mainAxisExtent: 100,
                                             ),
                                             itemBuilder: (BuildContext context,
