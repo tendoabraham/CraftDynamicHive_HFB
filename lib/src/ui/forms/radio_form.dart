@@ -275,7 +275,7 @@ class _RadioWidgetListState extends State<RadioWidgetList> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                 child: const Text(
-                  "Choose receipient",
+                  "Choose recipient",
                   style: TextStyle(
                       fontSize: 13,
                       fontFamily: "Manrope",

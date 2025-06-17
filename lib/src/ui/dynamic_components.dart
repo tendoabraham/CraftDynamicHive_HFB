@@ -372,6 +372,7 @@ class _DynamicButtonState extends State<DynamicButton> {
   }
 
   onClick() {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (formItem?.controlId == "CLOSE") {
       Navigator.of(context).pop();
       Navigator.of(context).pop();
