@@ -11,7 +11,9 @@ class PDFUtil {
       drawMultipleGrids = false,
       isShare = false}) async {
     final PdfDocument document = PdfDocument();
-    final directory = await getExternalStorageDirectory();
+    final directory = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
     PdfPage page = document.pages.add();
     bool showImageHeader = true;
 
