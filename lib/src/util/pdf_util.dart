@@ -212,16 +212,41 @@ class PDFUtil {
             subTitleUpperBound; // Adjust the top margin value as desired
     String receiptNo = ""; // A
 
+    // receiptdetails?.entries.forEach((item) {
+    //   PdfGridRow row = grid.rows.add();
+    //   String title = item.key;
+    //   String value = row.cells[1].value = item.value ?? "****";
+    //
+    //   // Skip if value is empty
+    //   if (value.isEmpty) return;
+    //
+    //   if (title.toLowerCase() == "reference no" ||
+    //       title.toLowerCase() == "bankreference" ||
+    //       title.toLowerCase() == "reference id" ||
+    //       title.toLowerCase() == "bank reference") {
+    //     receiptNo = value;
+    //   }
+    //   row.cells[0].value = title;
+    //   row.cells[1].value = value;
+    // });
+
     receiptdetails?.entries.forEach((item) {
+      final value = item.value?.toString().trim() ?? "";
+
+      // Skip if empty or zero-like
+      if (value.isEmpty || ["0", "0.00", "0.000"].contains(value)) return;
+
+      // Only add row if value passed the check
       PdfGridRow row = grid.rows.add();
       String title = item.key;
-      String value = row.cells[1].value = item.value ?? "****";
+
       if (title.toLowerCase() == "reference no" ||
           title.toLowerCase() == "bankreference" ||
           title.toLowerCase() == "reference id" ||
           title.toLowerCase() == "bank reference") {
         receiptNo = value;
       }
+
       row.cells[0].value = title;
       row.cells[1].value = value;
     });

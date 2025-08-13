@@ -250,16 +250,58 @@ class _TransactionReceiptState extends State<TransactionReceipt>
     });
   }
 
+  // Map<String, dynamic> getTransactionDetailsMap(PostDynamic postDynamic) {
+  //   Map<String, dynamic> details = {};
+  //   postDynamic.receiptDetails?.asMap().forEach((index, item) {
+  //     final mapItem = MapItem.fromJson(postDynamic.receiptDetails?[index]);
+  //     final title = mapItem.title;
+  //     final value = mapItem.value ?? "****";
+  //
+  //     print("TITLE: $title");
+  //
+  //     if (!["0", "0.00", "0.000"].contains(value)) {
+  //       details[title] = value;
+  //     }
+  //   });
+  //   return details;
+  // }
+
   Map<String, dynamic> getTransactionDetailsMap(PostDynamic postDynamic) {
     Map<String, dynamic> details = {};
+    Map<String, int> titleCount = {}; // Track duplicate titles
+
     postDynamic.receiptDetails?.asMap().forEach((index, item) {
-      String title = MapItem.fromJson(postDynamic.receiptDetails?[index]).title;
-      String value =
-          MapItem.fromJson(postDynamic.receiptDetails?[index]).value ?? "****";
-      details.addAll({title: value});
+      final mapItem = MapItem.fromJson(postDynamic.receiptDetails?[index]);
+      String title = mapItem.title;
+      final value = mapItem.value ?? "****";
+
+      // Skip if value is zero-like
+      if (["0", "0.00", "0.000"].contains(value)) return;
+
+      // Handle duplicates by adding a counter suffix
+      if (details.containsKey(title)) {
+        titleCount[title] = (titleCount[title] ?? 1) + 1;
+        title = "$title ${titleCount[title]}";
+      } else {
+        titleCount[title] = 1;
+      }
+
+      details[title] = value;
     });
+
     return details;
   }
+
+  // Map<String, dynamic> getTransactionDetailsMap(PostDynamic postDynamic) {
+  //   Map<String, dynamic> details = {};
+  //   postDynamic.receiptDetails?.asMap().forEach((index, item) {
+  //     String title = MapItem.fromJson(postDynamic.receiptDetails?[index]).title;
+  //     String value =
+  //         MapItem.fromJson(postDynamic.receiptDetails?[index]).value ?? "****";
+  //     details.addAll({title: value});
+  //   });
+  //   return details;
+  // }
 
   @override
   void dispose() {
